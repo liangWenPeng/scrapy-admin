@@ -1,4 +1,5 @@
 # scrapy-admin
+![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/model.png)
 
 ## Overview
 scrapy-admin 是一个针对scrapy的后台管理系统，使用django框架编写，具有定时调度、周期调度和状态监控等功能。
@@ -27,7 +28,7 @@ requests  2.13+
 scrapy已经添加了MongoStateStore扩展、正确设置了Mongodb数据库并在scrapy_admin/settings.py文件中填写了数据库信息。
 
 ### 数据模型
-![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/model.png)
+
 
 #### Cron
 用于定义一个APSchulder中的cron对象，不同于一般的cron表达式，APSchulder中的cron对象对缺省值具有自动推断功能，具体参见：[apscheduler.triggers.cron](http://apscheduler.readthedocs.io/en/latest/modules/triggers/cron.html?highlight=cron)
@@ -65,14 +66,17 @@ scrapy已经添加了MongoStateStore扩展、正确设置了Mongodb数据库并�
  
 ### 爬虫状态&数据统计
 数据图绘制使用Echart书写
+#### job
+![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/job2.png)
+#### task
+![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/task.png)
+#### Group 
+![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/group.png)
 #### project
 ![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/project.png)
 
-#### Group 
-![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/group.png)
 
-#### task
-![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/task.png)
 
-#### job
-![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/job2.png)
+
+
+
