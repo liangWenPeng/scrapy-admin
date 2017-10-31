@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Statue charts</title>
+    <script src="https://cdn.bootcss.com/echarts/3.7.2/echarts.min.js"></script>
+</head>
+<body>
+<div id="speed-chart" style="width: 100%;height:280px;"></div>
+<div id="status-chart" style="width: 100%;height:350px;margin-top: 30px"></div>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart1 = echarts.init(document.getElementById('speed-chart'));
+
+    // 指定图表的配置项和数据
+    option = {
+        title: {
+            text: '{{ job_name }}抓取速度'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['item', 'page']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: {{ xaxis_data }}
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: 'item',
+                type: 'line',
+                data: {{ item_rates }}
+            },
+            {
+                name: 'page',
+                type: 'line',
+                data: {{ page_rates }}
+            },
+
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart1.setOption(option);
+</script>
+
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart2 = echarts.init(document.getElementById('status-chart'));
+
+    // 指定图表的配置项和数据
+    option = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                crossStyle: {
+                    color: '#999'
+                }
+            }
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        title: {
+            text: '{{ job_name }} 抓取状态'
+        },
+        legend: {
+            data: ['request_count', 'response_count', 'item_scraped_count', 'file_count']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+
+        xAxis: {
+            type: 'category',
+            data: {{ xaxis_data }}
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: 'request_count',
+                type: 'line',
+                data: {{ request_counts }}
+            },
+            {
+                name: 'response_count',
+                type: 'line',
+                data: {{ response_counts }}
+            },
+
+            {
+                name: 'item_scraped_count',
+                type: 'bar',
+                data: {{ item_scraped_counts }}
+            },
+            {
+                name: 'file_count',
+                type: 'bar',
+                data: {{ file_counts }}
+            }
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart2.setOption(option);
+</script>
+</body>
+</html>

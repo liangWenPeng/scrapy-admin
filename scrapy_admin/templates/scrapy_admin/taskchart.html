@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task chart</title>
+    <script src="https://cdn.bootcss.com/echarts/3.7.2/echarts.min.js"></script>
+</head>
+<body>
+<div style="margin: 10px">
+    <div id="bar-div" style="height: 400px;width: 61.8%;float: left"></div>
+    <div id="pie-div" style="height: 400px;width: 38.2%;float: left"></div>
+
+</div>
+<script>
+    var piechart = echarts.init(document.getElementById('pie-div'));
+    pie_option = {
+        title: {
+            text:  '{{ task_name }} 各job抓取贡献率',
+            subtext: '指定时间段内',
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            type: 'scroll',
+            orient: 'vertical',
+            right: 10,
+            top: 20,
+            bottom: 20,
+{#            data: {{ job_names|safe }}#}
+        },
+        series: [
+            {
+                name: '抓取条目数',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: {{ pie_data|safe }},
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    piechart.setOption(pie_option)
+
+
+    bar_option = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                crossStyle: {
+                    color: '#999'
+                }
+            }
+        },
+        toolbox: {
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+         title: {
+            text: '{{ task_name }} 抓取数据',
+            subtext: '指定时间段内',
+        },
+         grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        legend: {
+            data: ['抓取条目数', '下载文件数', '发送请求数']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: {{xaxis_data  }},
+                axisPointer: {
+                    type: 'shadow'
+                }
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+
+            },
+        ],
+        series: [
+            {
+                name: '抓取条目数',
+                type: 'bar',
+                data: {{ item_scraped_counts }}
+            },
+            {
+                name: '下载文件数',
+                type: 'bar',
+                data: {{ file_counts }}
+            },
+            {
+                name: '发送请求数',
+                type: 'line',
+                data: {{ request_counts }}
+            }
+        ]
+    };
+    var barchart = echarts.init(document.getElementById('bar-div'));
+    barchart.setOption(bar_option)
+</script>
+</body>
+</html>

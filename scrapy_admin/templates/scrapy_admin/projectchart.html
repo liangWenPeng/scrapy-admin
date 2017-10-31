@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project chart</title>
+    <script src="https://cdn.bootcss.com/echarts/3.7.2/echarts.min.js"></script>
+</head>
+<body>
+<div style="margin: 10px">
+    <div id="bar-div" style="height: 900px;width: 100%"></div>
+
+</div>
+<script>
+    option = {
+        tooltip: {},
+        title: [{
+            text: '{{ project_name }} 抓取|文件 数量',
+            subtext: '总计 ' + {{total_item}} + '|' +{{ total_file }},
+            x: '25%',
+            textAlign: 'center'
+        }, {
+            text: '{{ project_name }} 各组item贡献率',
+            subtext: '总计 ' +{{total_item}},
+            x: '75%',
+            textAlign: 'center'
+        }, {
+            text: '{{ project_name }} 各组文件贡献率',
+            subtext: '总计 ' + {{ total_file }},
+            x: '75%',
+            y: '50%',
+            textAlign: 'center'
+        }],
+        grid: [{
+            top: 50,
+            width: '50%',
+            bottom: '5%',
+            left: 10,
+            containLabel: true
+        }, {
+            top: '55%',
+            width: '50%',
+            bottom: 0,
+            left: 10,
+            containLabel: true
+        }],
+        xAxis: [{
+            type: 'value',
+            splitLine: {
+                show: true
+            }
+        },],
+        yAxis: [{
+            type: 'category',
+            data: {{ xaxis_data }},
+            splitLine: {
+                show: false
+            }
+        },],
+        series: [
+            {
+                name: '抓取条目数',
+                type: 'bar',
+                data: {{ item_scraped_counts }},
+                barMaxWidth : 40,
+            },
+            {
+                name: '下载文件数',
+                type: 'bar',
+                data: {{ file_counts }},
+                barMaxWidth : 40,
+            },
+            {
+                type: 'pie',
+                radius: [0, '30%'],
+                center: ['75%', '25%'],
+                data: {{ item_pie_data|safe }}
+            }, {
+                type: 'pie',
+                radius: [0, '30%'],
+                center: ['75%', '75%'],
+                data: {{ file_pie_data|safe }}
+            }]
+    }
+    var bar = echarts.init(document.getElementById('bar-div'));
+    bar.setOption(option)
+</script>
+</body>
+</html>

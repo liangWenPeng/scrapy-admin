@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>statue</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function show_chart(time_type) {
+            chart_url = "/scrapyadmin/chart/{{ entry }}/" + time_type + "/{{ entry_id }}"
+            $('#chart_frame').attr('src', chart_url)
+        }
+
+    </script>
+</head>
+<body>
+<div style="margin:10px">
+    <div class="btn-toolbar" role="toolbar" style="margin-bottom:10px">
+        <div class="btn-group">
+            <button type="button" class="btn btn-default" onclick='show_chart("hour")'>60 分钟</button>
+            <button type="button" class="btn btn-default" onclick='show_chart("day")'>24 小时</button>
+            <button type="button" class="btn btn-default" onclick='show_chart("week")'>7 天</button>
+            <button type="button" class="btn btn-default" onclick='show_chart("month")'>30 天</button>
+        </div>
+    </div>
+    <iframe id='chart_frame'
+            src="/scrapyadmin/chart/{{ entry }}/hour/{{ entry_id }}/"
+            width="100%" height="750px"
+            scrolling="auto" frameborder="0">
+    </iframe>
+</div>
+</body>
+</html>
