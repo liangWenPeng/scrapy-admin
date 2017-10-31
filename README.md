@@ -18,7 +18,7 @@ requests  2.13+
 2.  将scrapy_admin拷贝到项目目录下  
 3.  修改settings.py文件，在INSTALLED_APPS中添加scrapy_admin
 4.  修改urls文件,在urlpatterns中添加：url(r'^scrapyadmin/', include("scrapy_admin.urls"))
-5.  要使用状态监控和数据统计功能，需要在scrapy项目中添加MongoStateStore扩展
+5.  要使用状态监控和数据统计功能，需要在scrapy项目中添加MongoStateStore扩展(extensions.py中)
 6.  初始化数据库，启动django项目，登录管理后台
 
 ## 基本功能
@@ -67,7 +67,7 @@ scrapy已经添加了MongoStateStore扩展、正确设置了Mongodb数据库并�
 ### 爬虫状态&数据统计
 数据图绘制使用Echart书写
 #### job
-![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/job2.png)
+![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/job3.png)
 #### task
 ![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/task.png)
 #### Group 
