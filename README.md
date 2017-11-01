@@ -1,5 +1,4 @@
 # scrapy-admin
-![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/model.png)
 
 ## Overview
 scrapy-admin 是一个针对scrapy的后台管理系统，使用django框架编写，具有定时调度、周期调度和状态监控等功能。
@@ -13,12 +12,12 @@ requests  2.13+
 
 
 ## Installation
-
+这是一个django app，详细的安装部署方法可参考django文档，大致步骤如下：
 1.  新建一个django项目，并启用admin模块  
 2.  将scrapy_admin拷贝到项目目录下  
 3.  修改settings.py文件，在INSTALLED_APPS中添加scrapy_admin
 4.  修改urls文件,在urlpatterns中添加：url(r'^scrapyadmin/', include("scrapy_admin.urls"))
-5.  要使用状态监控和数据统计功能，需要在scrapy项目中添加MongoStateStore扩展(extensions.py中)
+5.  要使用状态监控和数据统计功能，需要在scrapy项目中添加MongoStateStore扩展
 6.  初始化数据库，启动django项目，登录管理后台
 
 ## 基本功能
@@ -27,8 +26,16 @@ requests  2.13+
 请确保scrapy已经正确部署到了scrapyd。若要使用状态监控和数据统计功能，请确保
 scrapy已经添加了MongoStateStore扩展、正确设置了Mongodb数据库并在scrapy_admin/settings.py文件中填写了数据库信息。
 
-### 数据模型
+#### 关于MongoStateStore扩展
+该扩展的作用是每隔一段时间，将爬虫的状态保存到Mongodb数据库中。要启用该扩展，除了在extendtions中添加该扩展外，还需要在scrapy settings文件中设置以下几个字段：
+1. MONGODB_URI：Mongodb的uri地址
+2. MONGODB_DATABASE：Mongo数据库名称
+3. MONGO_STATES_COLLECTION：保存状态数据的集合的名称
+4. MONGO_STATES_INTERVAL：保存状态的时间间隔，以秒为单位，整数值
 
+
+### 数据模型
+![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/model.png)
 
 #### Cron
 用于定义一个APSchulder中的cron对象，不同于一般的cron表达式，APSchulder中的cron对象对缺省值具有自动推断功能，具体参见：[apscheduler.triggers.cron](http://apscheduler.readthedocs.io/en/latest/modules/triggers/cron.html?highlight=cron)
@@ -66,17 +73,14 @@ scrapy已经添加了MongoStateStore扩展、正确设置了Mongodb数据库并�
  
 ### 爬虫状态&数据统计
 数据图绘制使用Echart书写
-#### job
-![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/job3.png)
-#### task
-![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/task.png)
-#### Group 
-![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/group.png)
 #### project
 ![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/project.png)
 
+#### Group 
+![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/group.png)
 
+#### task
+![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/task.png)
 
-
-
-
+#### job
+![](https://raw.githubusercontent.com/liangWenPeng/scrapy-admin/master/pics/job2.png)
